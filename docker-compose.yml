@@ -1,0 +1,39 @@
+# ==========================================================
+# On-premise развёртывание: Ollama (инференс) + Streamlit (интерфейс)
+#
+# 1. Запустить сервисы:
+#       docker compose up -d --build
+# 2. Положить GGUF в ./models/ (см. docs/model_card.md), затем создать модель:
+#       docker compose exec ollama ollama create qwen-reviewer -f /modelfiles/Modelfile
+# 3. Собрать RAG-индекс (нужен каталог dataset/data_3 с .txt):
+#       docker compose exec app python scripts/build_rag_index.py
+# 4. Открыть UI: http://localhost:8501
+# ==========================================================
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+      - ./modelfiles:/modelfiles:ro
+      - ./models:/models:ro
+    restart: unless-stopped
+
+  app:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      OLLAMA_URL: http://ollama:11434/api/chat
+      MODEL_NAME: qwen-reviewer:latest
+    volumes:
+      - ./chroma_db:/app/chroma_db
+      - ./dataset:/app/dataset:ro
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+volumes:
+  ollama_models:

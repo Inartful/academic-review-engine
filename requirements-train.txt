@@ -1,0 +1,38 @@
+# ==========================================================
+# Зависимости для офлайн-пайплайна: генерация датасета -> QLoRA -> экспорт GGUF
+#   pip install -r requirements-train.txt
+#
+# ВАЖНО (torch/CUDA): под свою версию CUDA torch ставится отдельно,
+# см. https://pytorch.org/get-started/locally/
+# ==========================================================
+
+# --- R&D: работа в ноутбуках ---
+jupyterlab>=4.2
+
+# --- Ноутбук 01: генерация синтетического датасета (DeepSeek-V3 через Chutes) ---
+openai>=1.40
+python-dotenv>=1.0
+tqdm>=4.66
+
+# --- Анализ данных и графики ---
+pandas>=2.2
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.13
+
+# --- Ноутбук 02: QLoRA-дообучение Qwen2.5-7B-Instruct и экспорт в GGUF ---
+# unsloth + trl дают самый дешёвый по VRAM SFT (2 x 4-bit) под одну GPU
+torch>=2.4
+unsloth>=2024.10
+trl>=0.12
+transformers>=4.46
+peft>=0.13
+datasets>=3.0
+accelerate>=1.0
+bitsandbytes>=0.44
+
+# --- Логи обучения (report_to="tensorboard" в ноутбуке 02) ---
+tensorboard>=2.17
+
+# --- Публикация артефактов модели на HuggingFace Hub (scripts/publish_to_hub.py) ---
+huggingface_hub>=0.24

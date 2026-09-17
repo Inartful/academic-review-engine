@@ -1,0 +1,26 @@
+# Данные, веса и локальные артефакты не нужны внутри образа
+.git
+.github
+.venv
+venv
+unsloth_env
+dataset
+chroma_db
+checkpoints
+runs
+lora_reviewer_final
+qwen-reviewer
+qwen-reviewer_gguf
+models
+notebooks
+docs/figures
+reports
+*.jsonl
+*.log
+*.csv
+*.gguf
+*.safetensors
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache

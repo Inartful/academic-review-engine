@@ -1,0 +1,20 @@
+# ==========================================================
+# Runtime-зависимости DSS-приложения (Streamlit UI + RAG)
+#   pip install -r requirements.txt
+# Для ноутбуков (генерация датасета / QLoRA-обучение) см. requirements-train.txt
+# ==========================================================
+
+# --- UI ---
+streamlit>=1.36
+
+# --- HTTP к локальной Ollama ---
+requests>=2.32
+
+# --- Парсинг загружаемых рукописей (PDF/TXT) ---
+PyPDF2>=3.0
+
+# --- RAG: векторное хранилище + эмбеддинги ---
+langchain-community>=0.3
+langchain-text-splitters>=0.3
+chromadb>=0.5
+sentence-transformers>=3.0

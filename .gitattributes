@@ -1,0 +1,18 @@
+# Нормализуем переводы строк, чтобы диффы не ломались на Windows/Linux
+* text=auto eol=lf
+
+# Ноутбуки не показываем как текстовый дифф (иначе шум от outputs/base64)
+*.ipynb -text -diff
+
+# Бинарные артефакты
+*.png binary
+*.jpg binary
+*.pdf binary
+*.safetensors binary
+*.gguf binary
+*.bin binary
+*.pt binary
+*.sqlite3 binary
+
+# Языковая статистика GitHub: код проекта — Python, ноутбуки не перекрывают его
+*.ipynb linguist-documentation

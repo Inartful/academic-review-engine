@@ -1,0 +1,26 @@
+# Qwen2.5-7B Reviewer — конфигурация локальной модели в Ollama
+#
+# Сборка (из папки с GGUF-файлом, см. docs/model_card.md):
+#   ollama create qwen-reviewer -f modelfiles/Modelfile
+#
+# Перед сборкой положи в эту же папку файл qwen2.5-7b-instruct.Q4_K_M.gguf
+# (создаётся ноутбуком notebooks/02_lora_finetuning.ipynb, ~4.4 ГБ).
+
+FROM qwen2.5-7b-instruct.Q4_K_M.gguf
+
+TEMPLATE """{{- if .System }}
+<|im_start|>system
+{{ .System }}<|im_end|>
+{{- end }}
+<|im_start|>user
+{{ .Prompt }}<|im_end|>
+<|im_start|>assistant
+"""
+
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|endoftext|>"
+PARAMETER temperature 0.1
+PARAMETER min_p 0.1
+PARAMETER num_ctx 8192
+
+SYSTEM """Ты — ведущий научный рецензент уровня PhD. Твоя задача — проанализировать научную статью и выдать структурированную объективную рецензию. Выведи ТОЛЬКО валидный JSON без markdown-разметки."""

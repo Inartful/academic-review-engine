@@ -1,0 +1,26 @@
+[project]
+name = "diploma-reviewer"
+version = "1.0.0"
+description = "On-premise DSS авторецензирования научных статей: QLoRA Qwen2.5-7B + RAG + детерминированный цензор"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Ilya Korlyakov" }]
+keywords = ["llm", "qlora", "sft", "unsloth", "rag", "llm-as-a-judge", "peer-review"]
+
+[project.optional-dependencies]
+dev = ["ruff>=0.6", "pytest>=7.4"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+# Ноутбуки и тяжёлые каталоги не линтуем: там код research-качества, а не библиотека
+extend-exclude = ["notebooks", "docs", "chroma_db", "dataset", "checkpoints"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"

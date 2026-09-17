@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint-and-test:
+    name: Lint & unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Установка dev-инструментов
+        run: pip install ruff pytest
+
+      - name: Ruff (lint)
+        run: ruff check .
+
+      - name: Проверка синтаксиса модулей
+        run: python -m compileall -q app.py src scripts tests
+
+      - name: Юнит-тесты
+        run: pytest
+
+  notebooks:
+    name: Notebooks hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Ноутбуки валидны и без сохранённых выводов
+        run: python scripts/check_notebooks.py
