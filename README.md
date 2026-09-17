@@ -3,6 +3,7 @@
 **QLoRA-дообучение Qwen2.5-7B-Instruct (unsloth + TRL) → GGUF → Ollama → Streamlit + RAG**
 
 [![CI](https://github.com/Inartful/diploma/actions/workflows/ci.yml/badge.svg)](https://github.com/Inartful/diploma/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Inartful/diploma)](https://github.com/Inartful/diploma/releases/tag/v1.0.0)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Code style](https://img.shields.io/badge/code%20style-ruff-000000)
